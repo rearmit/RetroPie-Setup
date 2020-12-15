@@ -159,6 +159,7 @@ function build_emulationstation() {
         # force GLESv1 on videocore due to performance issue with GLESv2
         isPlatform "videocore" && params+=(-DUSE_GLES1=On)
     fi
+    isPlatform "armv7-mali" && params+=(-DGLES=On)
     rpSwap on 1000
     cmake . "${params[@]}"
     make clean
