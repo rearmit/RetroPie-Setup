@@ -59,6 +59,8 @@ function build_lr-mupen64plus() {
         params+=(platform="$__platform-mesa")
     elif isPlatform "mali"; then
         params+=(platform="odroid")
+    elif isPlatform "kms"; then
+        params+=(platform="odroid")
     else
         isPlatform "arm" && params+=(WITH_DYNAREC=arm)
         isPlatform "neon" && params+=(HAVE_NEON=1)
