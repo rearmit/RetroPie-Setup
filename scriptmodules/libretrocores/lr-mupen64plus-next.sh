@@ -39,7 +39,7 @@ function build_lr-mupen64plus-next() {
         elif isPlatform "mali"; then
             params+=(platform="odroid")
         elif isPlatform "kms"; then
-            params+=(platform="odroid")
+            params+=(platform="armv7-mali")
         fi
         if isPlatform "neon"; then
             params+=(HAVE_NEON=1)
