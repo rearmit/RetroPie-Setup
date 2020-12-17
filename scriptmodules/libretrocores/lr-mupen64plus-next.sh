@@ -26,7 +26,7 @@ function depends_lr-mupen64plus-next() {
 }
 
 function sources_lr-mupen64plus-next() {
-    gitPullOrClone "$md_build" https://github.com/rearmit/mupen64plus-libretro-nx.git develop
+    gitPullOrClone "$md_build" https://github.com/libretro/mupen64plus-libretro-nx.git develop
 }
 
 function build_lr-mupen64plus-next() {
@@ -39,7 +39,7 @@ function build_lr-mupen64plus-next() {
         elif isPlatform "mali"; then
             params+=(platform="odroid")
         elif isPlatform "armv7-mali"; then
-            params+=(platform="armv7-mali")
+            params+=(platform="odroid")
         fi
         if isPlatform "neon"; then
             params+=(HAVE_NEON=1)
