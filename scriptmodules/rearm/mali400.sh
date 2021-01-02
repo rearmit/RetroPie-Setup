@@ -28,8 +28,8 @@ function build_mali400() {
     export KDIR=/lib/modules/`uname -r`/build
     export CROSS_COMPILE=
     export INSTALL_MOD_PATH=
-    build.sh -r r9p0 -c
-    build.sh -r r9p0 -b
+    ./build.sh -r r9p0 -c
+    ./build.sh -r r9p0 -b
     md_ret_require+=("$md_build/mali.ko")
 }
 
