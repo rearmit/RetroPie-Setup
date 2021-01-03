@@ -31,7 +31,7 @@ function build_mali400userspace() {
 }
 
 function install_mali400userspace() {
-    meson install build/
+    build/meson install
     ldconfig
 }
 
