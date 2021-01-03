@@ -11,29 +11,27 @@
 
 rp_module_id="mali400userspace"
 rp_module_desc="Mali400 Userspace drivers"
-rp_module_licence="GPL2 https://raw.githubusercontent.com/mripard/sunxi-mali/blob/master/LICENSE"
+rp_module_licence="https://github.com/rockchip-linux/libmali/blob/master/END_USER_LICENCE_AGREEMENT.txt"
 rp_module_section="rearm"
 rp_module_flags="!all armv7-mali"
 
 function depends_mali400userspace() {
+    local depends=(meson ninja-build cmake pkg-config) # linux-headers-current-sunxi
     getDepends "${depends[@]}"
 }
 
 function sources_mali400userspace() {
-    if [ ! -d "/opt/rearm/libmali" ]; then
-        git clone https://github.com/rearmit/libmali "/opt/rearm/libmali"
-    fi
-
-    git --git-dir=/opt/rearm/libmali/.git pull
-    cp -r "/opt/rearm/libmali/." "$md_build"
+    gitPullOrClone "$md_build" https://github.com/rockchip-linux/libmali
 }
 
 function build_mali400userspace() {
-    md_ret_require+=("$md_build/lib/arm-linux-gnueabihf/libmali.so")
+    meson build
+    meson configure build/ -Dgpu=utgard-400 -Dplatform=gbm -Dsubversion=r1p1 -Dversion=r7p0
+    md_ret_require+=("$md_build/build/build.ninja")
 }
 
 function install_mali400userspace() {
-    cp -r "$md_build"/. /usr/local/
+    meson install build/
     ldconfig
 }
 
