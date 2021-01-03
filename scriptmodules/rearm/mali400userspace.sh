@@ -25,8 +25,7 @@ function sources_mali400userspace() {
 }
 
 function build_mali400userspace() {
-    meson build
-    meson configure build/ -Dgpu=utgard-400 -Dplatform=gbm -Dsubversion=r1p1 -Dversion=r7p0
+    meson "configure build/ -Dgpu=utgard-400 -Dplatform=gbm -Dsubversion=r1p1 -Dversion=r7p0"
     md_ret_require+=("$md_build/build/build.ninja")
 }
 
