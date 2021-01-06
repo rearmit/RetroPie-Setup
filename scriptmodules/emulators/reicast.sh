@@ -74,7 +74,7 @@ function build_reicast() {
     make $(_params_reicast) clean
     make $(_params_reicast)
 
-    md_ret_require="$md_build/shell/linux/reicast.elf"
+    md_ret_require="$md_build/reicast/linux/reicast.elf"
 }
 
 function install_reicast() {
