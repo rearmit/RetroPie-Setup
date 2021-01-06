@@ -26,10 +26,10 @@ function depends_reicast() {
 }
 
 function sources_reicast() {
-    gitPullOrClone "$md_build" https://github.com/reicast/reicast-emulator.git master
-    applyPatch "$md_data/0001-enable-rpi4-sdl2-target.patch"
-    applyPatch "$md_data/0002-enable-vsync.patch"
-    applyPatch "$md_data/0003-fix-sdl2-sighandler-conflict.patch"
+    gitPullOrClone "$md_build" https://github.com/reicast/reicast-emulator.git #master
+    #applyPatch "$md_data/0001-enable-rpi4-sdl2-target.patch"
+    #applyPatch "$md_data/0002-enable-vsync.patch"
+    #applyPatch "$md_data/0003-fix-sdl2-sighandler-conflict.patch"
     sed -i "s#/usr/bin/env python#/usr/bin/env python3#" shell/linux/tools/reicast-joyconfig.py
 }
 
@@ -58,8 +58,6 @@ function _params_reicast() {
         fi
 
         params+=("platform=${platform}${subplatform}")
-    elif isPlatform "armv7-mali"; then
-       platform="odroid"
     else
         # generic flags
         isPlatform "x11" && params+=("USE_X11=1")
@@ -71,7 +69,7 @@ function _params_reicast() {
 }
 
 function build_reicast() {
-    cd shell/linux
+    cd reicast/linux
     make $(_params_reicast) clean
     make $(_params_reicast)
 
@@ -79,7 +77,7 @@ function build_reicast() {
 }
 
 function install_reicast() {
-    cd shell/linux
+    cd reicast/linux
     make $(_params_reicast) PREFIX="$md_inst" install
 
     md_ret_files=(
