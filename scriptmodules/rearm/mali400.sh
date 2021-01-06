@@ -41,7 +41,9 @@ function install_mali400() {
     grep -qxF 'blacklist lima' /etc/modprobe.d/blacklist-lima.conf || echo 'blacklist lima' >> /etc/modprobe.d/blacklist-lima.conf
     modprobe -r lima
     modprobe mali
-    chmod 0666 /dev/mali
+    chmod 0660 /dev/mali
+    sed -i 's/setenv disp_mem_reserves \"off\"/setenv disp_mem_reserves \"on\"/g' /boot/boot.cmd
+    mkimage -C none -A arm -T script -d /boot/boot.cmd /boot/boot.scr
 }
 
 function remove_mali400() {
