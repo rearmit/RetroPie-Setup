@@ -26,7 +26,7 @@ function depends_reicast() {
 }
 
 function sources_reicast() {
-    gitPullOrClone "$md_build" https://github.com/reicast/reicast-emulator.git #master
+    gitPullOrClone "$md_build" https://github.com/reicast/reicast-emulator.git alpha #master
     #applyPatch "$md_data/0001-enable-rpi4-sdl2-target.patch"
     #applyPatch "$md_data/0002-enable-vsync.patch"
     #applyPatch "$md_data/0003-fix-sdl2-sighandler-conflict.patch"
