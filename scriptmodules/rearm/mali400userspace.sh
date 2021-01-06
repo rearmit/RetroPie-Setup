@@ -16,21 +16,20 @@ rp_module_section="rearm"
 rp_module_flags="!all armv7-mali"
 
 function depends_mali400userspace() {
-    local depends=(meson ninja-build cmake pkg-config) # linux-headers-current-sunxi
+    local depends=(cmake) # linux-headers-current-sunxi
     getDepends "${depends[@]}"
 }
 
 function sources_mali400userspace() {
-    gitPullOrClone "$md_build" https://github.com/rockchip-linux/libmali
+    gitPullOrClone "$md_build" https://github.com/rearmit/libmali
 }
 
 function build_mali400userspace() {
-    meson "configure build/ -Dgpu=utgard-400 -Dplatform=gbm -Dsubversion=r1p1 -Dversion=r7p0"
-    md_ret_require+=("$md_build/build/build.ninja")
+    cmake . "-DMALI_VARIANT=400" "-DCMAKE_INSTALL_LIBDIR=lib/arm-linux-gnueabihf"
 }
 
 function install_mali400userspace() {
-    build/meson install
+    cmake -DCMAKE_INSTALL_PREFIX=/usr/local -P cmake_install.cmake
     ldconfig
 }
 
