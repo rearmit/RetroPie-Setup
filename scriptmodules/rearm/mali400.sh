@@ -16,7 +16,7 @@ rp_module_section="rearm"
 rp_module_flags="!all armv7-mali"
 
 function depends_mali400() {
-    local depends=(quilt) # linux-headers-current-sunxi
+    local depends=(quilt linux-headers-current-sunxi) # linux-headers-current-sunxi
     getDepends "${depends[@]}"
 }
 
