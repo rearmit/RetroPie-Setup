@@ -16,7 +16,8 @@ rp_module_section="rearm"
 rp_module_flags="!all armv7-mali"
 
 function depends_mali400() {
-    local depends=(quilt linux-headers-current-sunxi) # linux-headers-current-sunxi
+    apt-get remove -y --allow-change-held-packages linux-kenrel-current-sunxi
+    local depends=(quilt linux-kenrel-legacy-sunxi linux-headers-legacy-sunxi)
     getDepends "${depends[@]}"
 }
 
@@ -25,11 +26,6 @@ function sources_mali400() {
 }
 
 function build_mali400() {
-    FILE=/lib/modules/`uname -r`/builds/scripts/module.lds.S    
-    if [ -f $FILE ]; then
-        cp /lib/modules/`uname -r`/builds/scripts/module.lds.S /lib/modules/`uname -r`/builds/scripts/module.lds
-        sed -i '$ d' /lib/modules/`uname -r`/builds/scripts/module.lds
-    fi
     export KDIR=/lib/modules/`uname -r`/build
     export CROSS_COMPILE=
     export INSTALL_MOD_PATH=
