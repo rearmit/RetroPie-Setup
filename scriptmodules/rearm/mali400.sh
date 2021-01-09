@@ -25,6 +25,11 @@ function sources_mali400() {
 }
 
 function build_mali400() {
+    FILE=/lib/modules/`uname -r`/builds/scripts/module.lds.S    
+    if [ -f $FILE ]; then
+        cp /lib/modules/`uname -r`/builds/scripts/module.lds.S /lib/modules/`uname -r`/builds/scripts/module.lds
+        sed -i '$ d' /lib/modules/`uname -r`/builds/scripts/module.lds
+    fi
     export KDIR=/lib/modules/`uname -r`/build
     export CROSS_COMPILE=
     export INSTALL_MOD_PATH=
