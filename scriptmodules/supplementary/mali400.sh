@@ -44,7 +44,7 @@ function install_mali400() {
     chmod 0660 /dev/mali
     sed -i 's/setenv disp_mem_reserves \"off\"/setenv disp_mem_reserves \"on\"/g' /boot/boot.cmd
     mkimage -C none -A arm -T script -d /boot/boot.cmd /boot/boot.scr
-    grep -qxF 'extraargs="drm_kms_helper.drm_fbdev_overalloc=300"' /boot/armbianEnv.txt || echo 'extraargs="drm_kms_helper.drm_fbdev_overalloc=300"' >> /boot/armbianEnv.txt
+    grep -qxF 'extraargs="drm_kms_helper.drm_fbdev_overalloc=300 drm_kms_helper.drm_leak_fbdev_smem=1"' /boot/armbianEnv.txt || echo 'extraargs="drm_kms_helper.drm_fbdev_overalloc=300 drm_kms_helper.drm_leak_fbdev_smem=1"' >> /boot/armbianEnv.txt
 }
 
 function remove_mali400() {
