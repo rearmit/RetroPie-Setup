@@ -12,7 +12,7 @@
 rp_module_id="mali400userspace"
 rp_module_desc="Mali400 Userspace drivers"
 rp_module_licence="https://github.com/rockchip-linux/libmali/blob/master/END_USER_LICENCE_AGREEMENT.txt"
-rp_module_section="depends"
+rp_module_section="driver"
 rp_module_flags="!all armv7-mali"
 
 function depends_mali400userspace() {
