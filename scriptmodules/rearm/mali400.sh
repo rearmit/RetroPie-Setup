@@ -16,8 +16,6 @@ rp_module_section="rearm"
 rp_module_flags="!all armv7-mali"
 
 function depends_mali400() {
-    apt-get remove -y --allow-change-held-packages linux-image-current-sunxi
-    local depends=(quilt linux-image-legacy-sunxi linux-headers-legacy-sunxi)
     getDepends "${depends[@]}"
 }
 
