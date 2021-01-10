@@ -16,7 +16,6 @@ __sections[main]="main"
 __sections[opt]="optional"
 __sections[exp]="experimental"
 __sections[driver]="driver"
-__sections[rearm]="rearm"
 __sections[config]="configuration"
 __sections[depends]="dependency"
 
@@ -629,7 +628,6 @@ function rp_registerAllModules() {
     rp_registerModuleDir 300 "ports"
     rp_registerModuleDir 800 "supplementary"
     rp_registerModuleDir 900 "admin"
-	rp_registerModuleDir 1000 "rearm"
 }
 
 function rp_getIdxFromId() {

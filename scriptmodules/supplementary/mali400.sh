@@ -12,11 +12,11 @@
 rp_module_id="mali400"
 rp_module_desc="Mali400"
 rp_module_licence="GPL2 https://raw.githubusercontent.com/mripard/sunxi-mali/blob/master/LICENSE"
-rp_module_section="rearm"
+rp_module_section="depends"
 rp_module_flags="!all armv7-mali"
 
 function depends_mali400() {
-    local depends=(quilt linux-headers-current-sunxi) # linux-headers-current-sunxi
+    local depends=(quilt) # linux-headers-current-sunxi
     getDepends "${depends[@]}"
 }
 
