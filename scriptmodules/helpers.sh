@@ -211,6 +211,7 @@ function _mapPackage() {
             ;;
         mali-fbdev)
             isPlatform "vero4k" && pkg=""
+            isPlatform "armv7-mali" && pkg=""
             ;;
         # handle our custom package alias LINUX-HEADERS
         LINUX-HEADERS)
