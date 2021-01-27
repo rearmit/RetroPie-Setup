@@ -525,7 +525,7 @@ function platform_generic-x11() {
 
 function platform_armv7-mali() {
     __default_cpu_flags="-marm -mcpu=cortex-a7 -mfpu=neon-vfpv4"
-    __platform_flags+=(arm armv7 neon kms gles)
+    __platform_flags+=(arm armv7 neon mali gles)
 }
 
 function platform_imx6() {
