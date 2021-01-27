@@ -35,7 +35,7 @@ function _list_depends_sdl2() {
     # already covered by the build-essential package retropie relies on.
     local depends=(libasound2-dev libudev-dev libibus-1.0-dev libdbus-1-dev fcitx-libs-dev libsndio-dev libsamplerate0-dev)
     # these were removed by a PR for vero4k support (cannot test). Needed though at least for for RPI and X11
-    ! isPlatform "vero4k" && depends+=(libx11-dev libxcursor-dev libxext-dev libxi-dev libxinerama-dev libxkbcommon-dev libxrandr-dev libxss-dev libxt-dev libxv-dev libxxf86vm-dev libgl1-mesa-dev)
+    ! isPlatform "vero4k" && ! isPlatform "armv7-mali" && depends+=(libx11-dev libxcursor-dev libxext-dev libxi-dev libxinerama-dev libxkbcommon-dev libxrandr-dev libxss-dev libxt-dev libxv-dev libxxf86vm-dev libgl1-mesa-dev)
     isPlatform "gles" || isPlatform "gl" && depends+=(libegl1-mesa-dev libgles2-mesa-dev)
     isPlatform "gl" || isPlatform "rpi" && depends+=(libgl1-mesa-dev libglu1-mesa-dev)
     isPlatform "kms" || isPlatform "rpi" && depends+=(libdrm-dev libgbm-dev)
@@ -71,7 +71,7 @@ function build_sdl2() {
 
     cd "$(get_pkg_ver_sdl2)"
 
-    if isPlatform "vero4k"; then
+    if isPlatform "vero4k" || isPlatform "armv7-mali"; then
         # remove harmful (mesa) and un-needed (X11) dependencies from debian package control
         sed -i '/^\s*lib.*x\|mesa/ d' ./debian/control
         # disable vulkan and X11 video support
