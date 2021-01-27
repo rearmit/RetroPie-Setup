@@ -169,6 +169,7 @@ function build_emulationstation() {
         [[ "$gl_ver" -gt 1 ]] && params+=(-DUSE_OPENGL_21=On)
     fi
     isPlatform "armv7-mali" && params+=(-DGLES=On)
+    isPlatform "armv7-mali" && params+=(-DUSE_GLES1=On)
     rpSwap on 1000
     cmake . "${params[@]}"
     make clean
