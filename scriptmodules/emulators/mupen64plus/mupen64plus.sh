@@ -440,6 +440,8 @@ if [[ "$(sed -n '/^Hardware/s/^.*: \(.*\)/\1/p' < /proc/cpuinfo)" == BCM* ]]; th
     # If a raspberry pi is used lower resolution to 320x240 and enable SDL dispmanx scaling mode 1
 elif [[ -e /opt/vero3/lib/libMali.so  ]]; then
     SDL_AUDIODRIVER=alsa
+elif [[ -e /usr/local/lib/arm-linux-gnueabihf/libMali.so  ]]; then
+    SDL_AUDIODRIVER=alsa
 else
     SDL_AUDIODRIVER=pulse
 fi
