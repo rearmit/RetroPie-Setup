@@ -36,9 +36,6 @@ function sources_mupen64plus-ntdnt() {
         dir="$md_build/mupen64plus-${repo[1]}"
         gitPullOrClone "$dir" https://github.com/${repo[0]}/mupen64plus-${repo[1]} ${repo[2]}
     done
-#    gitPullOrClone "$md_build/GLideN64" https://github.com/gonetz/GLideN64.git
-#    local config_version=$(grep -oP '(?<=CONFIG_VERSION_CURRENT ).+?(?=U)' GLideN64/src/Config.h)
-#    echo "$config_version" > "$md_build/GLideN64_config_version.ini"
 }
 
 function build_mupen64plus-ntdnt() {
