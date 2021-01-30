@@ -10,7 +10,7 @@ rp_module_desc="N64 emulator MUPEN64Plus"
 rp_module_help="ROM Extensions: .z64 .n64 .v64\n\nCopy your N64 roms to $romdir/n64"
 rp_module_licence="GPL2 https://raw.githubusercontent.com/mupen64plus/mupen64plus-core/master/LICENSES"
 rp_module_section="main"
-rp_module_flags="!kms"
+rp_module_flags=""
 
 function depends_mupen64plus-ntdnt() {
     local depends=(cmake libsamplerate0-dev libspeexdsp-dev libsdl2-dev)
@@ -79,8 +79,6 @@ function build_mupen64plus-ntdnt() {
         'mupen64plus-rsp-hle/projects/unix/mupen64plus-rsp-hle.so'
         'mupen64plus-video-rice/projects/unix/mupen64plus-video-rice.so'
         'mupen64plus-video-glide64mk2/projects/unix/mupen64plus-video-glide64mk2.so'
-        'mupen64plus-rsp-z64/projects/unix/mupen64plus-rsp-z64.so'
-        'mupen64plus-rsp-cxd4/projects/unix/mupen64plus-rsp-cxd4.so'
         )
 }
 
