@@ -48,27 +48,25 @@ function build_mupen64plus-ntdnt() {
     local params=()
     for dir in *; do
         if [[ -f "$dir/projects/unix/Makefile" ]]; then
-            make -C "$dir/projects/unix" clean
+            params=()
+            isPlatform "rpi1" && params+=("VFP=1" "VFP_HARD=1")
+            isPlatform "videocore" || [[ "$dir" == "mupen64plus-audio-omx" ]] && params+=("VC=1")
+            if isPlatform "mesa" || isPlatform "mali"; then
+                params+=("USE_GLES=1")
+            fi
+            isPlatform "neon" && params+=("NEON=1")
+            isPlatform "x11" && params+=("OSD=1" "PIE=1")
+            isPlatform "x86" && params+=("SSE=SSE2")
+            isPlatform "armv6" && params+=("HOST_CPU=armv6")
+            isPlatform "armv7" && params+=("HOST_CPU=armv7")
+            isPlatform "aarch64" && params+=("HOST_CPU=aarch64")
+
             [[ "$dir" == "mupen64plus-ui-console" ]] && params+=("COREDIR=$md_inst/lib/" "PLUGINDIR=$md_inst/lib/mupen64plus/")
-            # MAKEFLAGS replace removes any distcc from path, as it segfaults with cross compiler and lto
-            export USE_GLES=1
-            export NEON=1
-            export VFP_HARD=1
-            export CPU=ARM
-            export ARCH_DETECTED=32BITS
-            export PIC=1
-            export NEW_DYNAREC=1
-            export CFLAGS="-marm -mfpu=neon -mfloat-abi=hard"
-            MAKEFLAGS="${MAKEFLAGS/\/usr\/lib\/distcc:/}" make -C "$dir/projects/unix" all "${params[@]}" OPTFLAGS="$CFLAGS -O3 -flto"
+            make -C "$dir/projects/unix" "${params[@]}" clean
+            # temporarily disable distcc due to segfaults with cross compiler and lto
+            DISTCC_HOSTS="" make -C "$dir/projects/unix" all "${params[@]}" OPTFLAGS="$CFLAGS -O3 -flto"
         fi
     done
-
-    # build GLideN64
-#    "$md_build/GLideN64/src/getRevision.sh"
-#   pushd "$md_build/GLideN64/projects/cmake"
-#    cmake -DMUPENPLUSAPI=On -DVEC4_OPT=On -DUSE_SYSTEM_LIBS=On -DNEON_OPT=On -DCRC_OPT=On ../../src/
-#    make
-#    popd
 
     rpSwap off
     md_ret_require=(
@@ -97,17 +95,12 @@ function install_mupen64plus-ntdnt() {
             make -C "$source/projects/unix" PREFIX="$md_inst" OPTFLAGS="$CFLAGS -O3 -flto" install
         fi
     done
-#    cp "$md_build/GLideN64/ini/GLideN64.custom.ini" "$md_inst/share/mupen64plus/"
-#    cp "$md_build/GLideN64/projects/cmake/plugin/release/mupen64plus-video-GLideN64.so" "$md_inst/lib/mupen64plus/"
-#    cp "$md_build/GLideN64_config_version.ini" "$md_inst/share/mupen64plus/"
-    # remove default InputAutoConfig.ini. inputconfigscript writes a clean file
     rm -f "$md_inst/share/mupen64plus/InputAutoCfg.ini"
 }
 
 function configure_mupen64plus-ntdnt() {
     addEmulator 1 "${md_id}-gles2rice$name" "n64" "$md_inst/bin/mupen64plus.sh mupen64plus-video-rice %ROM%"
     addEmulator 0 "${md_id}-glide64" "n64" "$md_inst/bin/mupen64plus.sh mupen64plus-video-glide64mk2 %ROM%"
-#    addEmulator 0 "${md_id}-GLideN64" "n64" "$md_inst/bin/mupen64plus.sh mupen64plus-video-GLideN64 %ROM%"
 
     addSystem "n64"
 
