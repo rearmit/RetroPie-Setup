@@ -624,7 +624,6 @@ function rp_registerModuleDir() {
     local vendor="$2"
     [[ -z "$vendor" ]] && return 1
     local module
-    local vendor
     while read module; do
         rp_registerModule "$module" "$dir" "$vendor"
     done < <(find "$dir" -mindepth 1 -maxdepth 1 -type f -name "*.sh" | sort)
@@ -638,7 +637,7 @@ function rp_registerAllModules() {
 
     local dir
     local type
-    local origin
+    local vendor
     while read dir; do
         # get parent folder
         vendor="${dir%/*}"
@@ -682,9 +681,9 @@ function rp_isEnabled() {
 
 function rp_updateHooks() {
     local function
-    local mod_id
+    local id
     for function in $(compgen -A function _update_hook_); do
-        mod_id="${function/_update_hook_/}"
-        [[ -n "$mod_id" ]] && rp_callModule "$mod_id" _update_hook
+        id="${function/_update_hook_/}"
+        [[ -n "$id" && "${__mod_info[$id/enabled]}" -eq 1 ]] && rp_callModule "$id" _update_hook
     done
 }
