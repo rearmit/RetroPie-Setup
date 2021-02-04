@@ -30,7 +30,7 @@ function install_theme_esthemes() {
     fi
     if [[ -z "$theme" ]]; then
         theme="c64-dev"
-        repo=" epicnoir"
+        repo="epicnoir"
     fi
     # Get the name of the default branch, fallback to 'master' if not found
     default_branch=$(runCmd git ls-remote --symref --exit-code "https://github.com/$repo/es-theme-$theme.git" HEAD | grep -oP ".*/\K[^\t]+")
