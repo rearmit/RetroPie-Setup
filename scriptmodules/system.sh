@@ -531,6 +531,11 @@ function platform_armv7-mali() {
     __platform_flags+=(arm armv7 neon kms gles)
 }
 
+function platform_h6() {
+    __default_cpu_flags="-mcpu=cortex-a53"
+    __platform_flags+=(aarch64 kms gles)
+}
+
 function platform_imx6() {
     __default_cpu_flags="-march=armv7-a -mfpu=neon -mtune=cortex-a9"
     __platform_flags+=(arm armv7 neon)
