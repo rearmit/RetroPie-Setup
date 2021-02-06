@@ -381,7 +381,7 @@ function get_platform() {
             "Allwinner sun8i Family")
                 __platform="armv7-mali"
                 ;;
-            "sun50iw1p1")
+            "sun50iw1p1*")
                 __platform="h6"
                 ;;
             *)
