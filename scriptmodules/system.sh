@@ -381,6 +381,9 @@ function get_platform() {
             "Allwinner sun8i Family")
                 __platform="armv7-mali"
                 ;;
+            "sun50iw1p1")
+                __platform="h6"
+                ;;
             *)
                 # jetson nano and tegra x1 can be identified via /sys/firmware/devicetree/base/model
                 local model_path="/sys/firmware/devicetree/base/model"
