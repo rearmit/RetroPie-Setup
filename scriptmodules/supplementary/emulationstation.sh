@@ -168,7 +168,7 @@ function build_emulationstation() {
         local gl_ver=$(sudo -u $user glxinfo | grep -oP "OpenGL version string: \K(\d+)")
         [[ "$gl_ver" -gt 1 ]] && params+=(-DUSE_OPENGL_21=On)
     fi
-    isPlatform "armv7-mali" && params+=(-DGLES=On)
+    isPlatform "armv7-mali" || isPlatform "h6" && params+=(-DGLES=On)
     rpSwap on 1000
     cmake . "${params[@]}"
     make clean
